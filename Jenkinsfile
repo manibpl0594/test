@@ -4,14 +4,16 @@ node {
    'service16','service17','service18','service19','service20','service21','service22','service23','service24','service25',
    'service26','service27','service28','service29','service30'], description: '', name: 'Choises')])])
    checkout scm 
-     docker.withRegistry('https://registry.hub.docker.com', 'Dockerhub_id') 
+      docker.withRegistry('https://registry.hub.docker.com', 'Dockerhub_id')
    if (Choises.equals("service1")){
+      { 
         def dockerfile = '/var/lib/jenkins/workspace/docker1/service1/Dockerfile .'
         def customImage = docker.build("manibpl0509/trivy-v2:${env.BUILD_ID}", "-f ${dockerfile}")
 
         /* Push the container to the custom Registry */
         customImage.push()
     }
+   }
    else if (Choises.equals("service2")){
         def dockerfile = '/var/lib/jenkins/workspace/docker1/service2/Dockerfile .'
         def customImage = docker.build("manibpl0509/golang-app:${env.BUILD_ID}", "-f ${dockerfile}")
@@ -19,6 +21,7 @@ node {
         /* Push the container to the custom Registry */
         customImage.push()
    }
+}
    else if (Choises.equals("service3")){
     checkout scm
     docker.withRegistry('https://registry.hub.docker.com', 'Dockerhub_id') {
