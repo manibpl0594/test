@@ -3,10 +3,10 @@ node {
    'service7','service8','service9','service10','service11','service12','service13','service14','service15',
    'service16','service17','service18','service19','service20','service21','service22','service23','service24','service25',
    'service26','service27','service28','service29','service30'], description: '', name: 'Choises')])])
-   checkout scm 
-      docker.withRegistry('https://registry.hub.docker.com', 'Dockerhub_id')
+   
    if (Choises.equals("service1")){
-      { 
+      checkout scm 
+      docker.withRegistry('https://registry.hub.docker.com', 'Dockerhub_id'){ 
         def dockerfile = '/var/lib/jenkins/workspace/docker1/service1/Dockerfile .'
         def customImage = docker.build("manibpl0509/trivy-v2:${env.BUILD_ID}", "-f ${dockerfile}")
 
@@ -15,6 +15,8 @@ node {
     }
    }
    else if (Choises.equals("service2")){
+      checkout scm 
+      docker.withRegistry('https://registry.hub.docker.com', 'Dockerhub_id'){
         def dockerfile = '/var/lib/jenkins/workspace/docker1/service2/Dockerfile .'
         def customImage = docker.build("manibpl0509/golang-app:${env.BUILD_ID}", "-f ${dockerfile}")
 
